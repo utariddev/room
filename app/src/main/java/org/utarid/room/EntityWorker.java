@@ -1,6 +1,7 @@
 package org.utarid.room;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "worker")
@@ -15,6 +16,11 @@ public class EntityWorker {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
+    }
+
+    @Ignore
+    public EntityWorker(int id) {
+        this.id = id;
     }
 
     public int getId() {

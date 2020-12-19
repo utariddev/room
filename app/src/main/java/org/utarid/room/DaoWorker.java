@@ -21,7 +21,7 @@ public interface DaoWorker {
     long insertWorker(EntityWorker worker);
 
     @Delete
-    void deleteWorker(EntityWorker worker);
+    int deleteWorker(EntityWorker worker);
 
     @Update
     void updateWorker(EntityWorker worker);

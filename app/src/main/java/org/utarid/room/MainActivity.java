@@ -52,6 +52,13 @@ public class MainActivity extends AppCompatActivity {
                 getAllWorkers();
             }
         });
+
+        binding.btnDeleteWorker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteWorker();
+            }
+        });
     }
 
     public void insertWorker() {
@@ -61,6 +68,23 @@ public class MainActivity extends AppCompatActivity {
                 EntityWorker worker = new EntityWorker(binding.txtInsertWorkerName.getText().toString(), binding.txtInsertWorkerSurname.getText().toString(), binding.txtInsertWorkerAge.getText().toString());
                 long newInsertedID = databaseWorker.daoWorker().insertWorker(worker);
                 Snackbar snackbar = Snackbar.make(binding.mainLayout, "id : " + newInsertedID + " is added", Snackbar.LENGTH_LONG);
+                snackbar.show();
+            }
+        }).start();
+    }
+
+    public void deleteWorker() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                EntityWorker worker = new EntityWorker(Integer.parseInt(binding.txtDeleteWorkderID.getText().toString()));
+                int deletedRow = databaseWorker.daoWorker().deleteWorker(worker);
+                Snackbar snackbar;
+                if (deletedRow == 1) {
+                    snackbar = Snackbar.make(binding.mainLayout, "id : " + binding.txtDeleteWorkderID.getText().toString() + " is deleted", Snackbar.LENGTH_LONG);
+                } else {
+                    snackbar = Snackbar.make(binding.mainLayout, "deletion is not successful", Snackbar.LENGTH_LONG);
+                }
                 snackbar.show();
             }
         }).start();
